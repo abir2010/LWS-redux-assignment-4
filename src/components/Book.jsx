@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 
 import { useDispatch } from "react-redux";
-import { deleteBook } from "../redux/book/actions";
 import { setForm } from "../redux/filter/actions";
+import deleteBooksFromDb from "../redux/book/thunk/deleteBooksFromDb";
 
 /* eslint-disable no-unused-vars */
 export default function Book({ book }) {
@@ -17,7 +17,7 @@ export default function Book({ book }) {
 
     const handleDelete = (id) => {
         // dispatch
-        dispatch(deleteBook(id));
+        dispatch(deleteBooksFromDb(id));
     };
 
     return (

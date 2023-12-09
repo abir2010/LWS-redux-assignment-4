@@ -1109,3 +1109,12 @@ input[type="number"]:focus {
         padding-right: 1.5rem;
     }
 }
+
+.error{
+    background-color: rgb(255, 197, 197);
+    text-align: center;
+    color: red;
+    border-radius: 5px;
+    font-size: 13px;
+    padding: 2px 0;
+}

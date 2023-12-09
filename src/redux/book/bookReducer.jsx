@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-import { ADDBOOK, DELETEBOOK, UPDATEBOOK } from "./actionTypes";
+import { ADDBOOK, DELETEBOOK, LOADBOOKS, UPDATEBOOK } from "./actionTypes";
 import { initailState } from "./initialState";
 
 const nextID = (books) => {
@@ -9,6 +9,9 @@ const nextID = (books) => {
 
 const bookReducer = (state = initailState, action) => {
     switch (action.type) {
+        case LOADBOOKS:
+            return [...action.payload];
+
         case ADDBOOK:
             return [
                 ...state,
@@ -22,22 +25,16 @@ const bookReducer = (state = initailState, action) => {
             return state.filter((book) => book.id !== action.payload);
 
         case UPDATEBOOK:
-            let singleBook = state.find(
-                (book) => book.id === action.payload.bookId
-            );
-
-            singleBook = {
-                ...action.payload.updatedBookData,
-                id: action.payload.bookId,
-            };
-
-            const updatedState = state.filter(
-                (book) => book.id !== action.payload.bookId
-            );
-
-            updatedState.push(singleBook);
-
-            return updatedState;
+            return state.map((book) => {
+                if (book.id !== action.payload.bookId) {
+                    return book;
+                } else {
+                    return {
+                        ...book,
+                        ...action.payload.updatedBookData,
+                    };
+                }
+            });
 
         default:
             return state;

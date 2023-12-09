@@ -1,9 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addBook, updateBook } from "./../redux/book/actions";
 import { useEffect, useState } from "react";
+import addBookToDb from "../redux/book/thunk/addBookToDb";
+import updateBookToDb from "../redux/book/thunk/updateBookToDb";
 
 export default function Form() {
     const [show, setShow] = useState(false);
+    const [error, setError] = useState(false);
     const [name, setName] = useState("");
     const [author, setAuthor] = useState("");
     const [img, setImg] = useState("");
@@ -49,9 +51,13 @@ export default function Form() {
         };
 
         // dispatch
-        dispatch(addBook(bookData));
-
-        resetInputBox();
+        if (name && author && img && price && rating && featured) {
+            dispatch(addBookToDb(bookData));
+            setError(false);
+            resetInputBox();
+        } else {
+            setError(true);
+        }
     };
 
     const handleUpdateBookSubmit = (e) => {
@@ -66,12 +72,15 @@ export default function Form() {
             featured,
         };
 
-        // // dispatch
-        dispatch(updateBook(filter.formContent.id, ubookData));
-
-        if (filter) setShow(false);
-
-        resetInputBox();
+        if (name && author && img && price && rating) {
+            // dispatch
+            dispatch(updateBookToDb(filter.formContent.id, ubookData));
+            setError(false);
+            if (filter) setShow(false);
+            resetInputBox();
+        } else {
+            setError(true);
+        }
     };
 
     return (
@@ -177,6 +186,9 @@ export default function Form() {
                         >
                             Update Book
                         </button>
+                    )}
+                    {error && (
+                        <div className="error">Fields cannot be empty</div>
                     )}
                 </form>
             </div>
