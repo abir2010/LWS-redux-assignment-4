@@ -1,14 +1,21 @@
 import logoImg from "../assets/images/logo.svg";
+import { useDispatch } from "react-redux";
+import { searchFilter } from "../redux/filter/actions";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
+    const [search, setSearch] = useState("");
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        // dispatch
+        dispatch(searchFilter(search));
+    }, [dispatch, search]);
+
     return (
         <nav className="py-4 2xl:px-6">
             <div className="container flex items-center justify-between">
-                <img
-                    src={logoImg}
-                    width="150px"
-                    className="object-contain"
-                />
+                <img src={logoImg} width="150px" className="object-contain" />
                 <ul className="hidden md:flex items-center space-x-6">
                     <li className="font-semibold cursor-pointer">Book Store</li>
                     <li className="cursor-pointer">Wishlist</li>
@@ -29,6 +36,8 @@ export default function Navbar() {
                             />
                         </svg>
                         <input
+                            // value={search}
+                            onChange={(e) => setSearch(e.target.value)}
                             type="text"
                             placeholder="Filter books..."
                             className="search"
