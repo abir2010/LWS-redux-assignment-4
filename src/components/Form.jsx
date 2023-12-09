@@ -51,7 +51,7 @@ export default function Form() {
         };
 
         // dispatch
-        if (name && author && img && price && rating && featured) {
+        if (name && author && img && price && rating) {
             dispatch(addBookToDb(bookData));
             setError(false);
             resetInputBox();

@@ -28,12 +28,12 @@
       "id": 3
     },
     {
-      "name": "The Sum of All Things",
+      "name": "The Sum of All Things 2",
       "author": "Nicole Brooks",
       "thumbnail": "https://th.bing.com/th/id/OIP.UMT0Aki5v_ayeukZUm18ugHaL2?rs=1&pid=ImgDetMain",
       "price": "10.99",
       "rating": "5",
-      "featured": false,
+      "featured": true,
       "id": 4
     }
   ]
